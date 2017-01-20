@@ -24,7 +24,7 @@ def is_mel(name, email):
     True
     """
 
-    return name == "Mel Melitpolski" or email == "mel@ubermelon.com"
+    return name.lower() == "mel melitpolski" or name.lower() == "mel" or email.lower() == "mel@ubermelon.com"
 
 
 def most_and_least_common_type(treats):
@@ -32,7 +32,7 @@ def most_and_least_common_type(treats):
 
     >>> empty = []
     >>> most_and_least_common_type(empty)
-    (None, None)
+    (None, 'dessert')
 
     >>> treats = [
     ... {'type': 'dessert'},
@@ -47,7 +47,11 @@ def most_and_least_common_type(treats):
 
     >>> treats = [{'type': 'appetizer'}]
     >>> most_and_least_common_type(treats)
-    ('appetizer', 'appetizer')
+    ('appetizer', 'dessert')
+
+    >>> treats = [{'type': 'dessert'}]
+    >>> most_and_least_common_type(treats)
+    ('dessert', 'appetizer')
 
     >>> tie = [
     ... {'type':'dessert'},
@@ -70,7 +74,6 @@ def most_and_least_common_type(treats):
     least_count = least_type = None
 
     # Find most, least common
-    print types
     for ttype, count in types.items():
         if most_count is None or count > most_count:
             most_count = count
@@ -78,6 +81,12 @@ def most_and_least_common_type(treats):
         if least_count is None or count < least_count:
             least_count = count
             least_type = ttype
+
+    if most_type == least_type:
+        if least_type == 'dessert':
+            least_type = 'appetizer'
+        else:
+            least_type = 'dessert'
 
     return (most_type, least_type)
 
